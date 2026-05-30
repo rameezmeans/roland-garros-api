@@ -13,8 +13,8 @@ class TennisMatch extends Model
     protected $fillable = [
         'tournament_name',
         'round',
-        'player_one_id',
-        'player_two_id',
+        'player1_id',
+        'player2_id',
         'winner_id',
         'score',
         'played_at',

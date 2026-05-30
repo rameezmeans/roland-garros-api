@@ -2,23 +2,33 @@
 
 namespace Database\Factories;
 
-use App\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<Player>
- */
 class PlayerFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'country' => fake()->randomElement([
+                'POL',
+                'BLR',
+                'USA',
+                'ITA',
+                'CHN',
+                'UKR',
+                'NEU',
+                'KAZ',
+            ]),
+            'ranking' => fake()->numberBetween(1, 100),
+            'seed' => fake()->numberBetween(1, 32),
+            'age' => fake()->numberBetween(18, 35),
+            'handedness' => fake()->randomElement([
+                'left',
+                'right',
+            ]),
+            'image_url' => fake()->imageUrl(),
+            'active' => true,
         ];
     }
 }
