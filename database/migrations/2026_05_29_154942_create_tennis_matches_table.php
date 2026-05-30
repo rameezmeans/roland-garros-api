@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('tennis_matches', function (Blueprint $table) {
             $table->id();
+
+            $table->string('tournament_name');
+            $table->string('round');
+
+            $table->foreignId('player1_id')->constrained('players')->onDelete('cascade');
+            $table->foreignId('player2_id')->constrained('players')->onDelete('cascade');
+
+           $table->foreignId('winner_id')->nullable()->constrained('players')->nullOnDelete();
+
+            $table->string('score')->nullable();
+            $table->timestamp('played_at')->nullable();
+
             $table->timestamps();
         });
     }

@@ -12,8 +12,28 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('players', function (Blueprint $table) {
+
             $table->id();
+
+            $table->string('name');
+            $table->string('country', 3);
+
+            $table->unsignedInteger('ranking');
+            $table->unsignedInteger('seed')->nullable();
+
+            $table->unsignedInteger('age');
+
+            $table->enum('handedness', ['right', 'left'])->default('right');
+
+            $table->string('img_url')->nullable();
+            $table->boolean('active')->default(true);
+
             $table->timestamps();
+
+            $table->index('ranking');
+            $table->index('seed');
+            $table->index('active');
+            
         });
     }
 

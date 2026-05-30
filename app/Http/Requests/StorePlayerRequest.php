@@ -12,7 +12,7 @@ class StorePlayerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,14 @@ class StorePlayerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'size:3'],
+            'ranking' => ['required', 'integer', 'min:1'],
+            'seed' => ['nullable', 'integer', 'min:1'],
+            'age' => ['required', 'integer', 'min:14', 'max:60'],
+            'handedness' => ['required', 'in:left,right'],
+            'image_url' => ['nullable', 'url'],
+            'active' => ['boolean'],
         ];
     }
 }
