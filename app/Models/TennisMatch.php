@@ -26,12 +26,12 @@ class TennisMatch extends Model
 
     public function playerOne()
     {
-        return $this->belongsTo(Player::class, 'player_one_id');
+        return $this->belongsTo(Player::class, 'player1_id');
     }
 
     public function playerTwo()
     {
-        return $this->belongsTo(Player::class, 'player_two_id');
+        return $this->belongsTo(Player::class, 'player2_id');
     }
 
     public function winner()

@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\DTOs\PlayerData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePlayerRequest;
 use App\Http\Requests\UpdatePlayerRequest;
 use App\Http\Resources\PlayerResource;
 use App\Models\Player;
+use App\Services\PlayerService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(
+        private readonly PlayerService $playerService
+    ) {
+    }
+
     public function index()
     {
         $players = Player::query()
@@ -34,13 +37,10 @@ class PlayerController extends Controller
         return PlayerResource::collection($players);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StorePlayerRequest $request): JsonResponse
     {
-        $player = Player::create(
-            $request->validated()
+        $player = $this->playerService->create(
+            PlayerData::fromArray($request->validated())
         );
 
         return response()->json([
@@ -48,34 +48,32 @@ class PlayerController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Player $player): PlayerResource
     {
         return new PlayerResource($player);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(
         UpdatePlayerRequest $request,
         Player $player
     ): PlayerResource {
-
-        $player->update(
-            $request->validated()
+        $player = $this->playerService->update(
+            $player,
+            PlayerData::fromArray(
+                array_merge(
+                    $player->toArray(),
+                    $request->validated()
+                )
+            )
         );
+
         return new PlayerResource($player);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Player $player): JsonResponse
     {
         $player->delete();
+
         return response()->json([
             'message' => 'Player deleted successfully',
         ]);

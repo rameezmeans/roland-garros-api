@@ -27,18 +27,18 @@ class Player extends Model
 
     // public function hasMatchesAsPlayer1()
     // {
-    //     return $this->hasMany(TennisMatch::class, 'player_one_id');
+    //     return $this->hasMany(TennisMatch::class, 'player1_id');
     // }
 
     // public function hasMatchesAsPlayer2()
     // {
-    //     return $this->hasMany(TennisMatch::class, 'player_two_id');
+    //     return $this->hasMany(TennisMatch::class, 'player2_id');
     // }
     
     public function matches()
     {
-        return $this->hasMany(TennisMatch::class, 'player_one_id')
-                    ->orWhere('player_two_id', $this->id);
+        return $this->hasMany(TennisMatch::class, 'player1_id')
+                    ->orWhere('player2_id', $this->id);
     }
 
     public function wins()

@@ -2,15 +2,22 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\DTOs\TennisMatchData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTennisMatchRequest;
 use App\Http\Requests\UpdateTennisMatchRequest;
 use App\Http\Resources\TennisMatchResource;
 use App\Models\TennisMatch;
+use App\Services\TennisMatchService;
 use Illuminate\Http\JsonResponse;
 
 class TennisMatchController extends Controller
 {
+    public function __construct(
+        private readonly TennisMatchService $tennisMatchService
+    ) {
+    }
+
     public function index()
     {
         $matches = TennisMatch::query()
@@ -35,8 +42,8 @@ class TennisMatchController extends Controller
 
     public function store(StoreTennisMatchRequest $request): JsonResponse
     {
-        $match = TennisMatch::create(
-            $request->validated()
+        $match = $this->tennisMatchService->create(
+            TennisMatchData::fromArray($request->validated())
         );
 
         return response()->json([
@@ -65,8 +72,14 @@ class TennisMatchController extends Controller
         UpdateTennisMatchRequest $request,
         TennisMatch $match
     ): TennisMatchResource {
-        $match->update(
-            $request->validated()
+        $match = $this->tennisMatchService->update(
+            $match,
+            TennisMatchData::fromArray(
+                array_merge(
+                    $match->toArray(),
+                    $request->validated()
+                )
+            )
         );
 
         return new TennisMatchResource(
