@@ -22,7 +22,7 @@ class PlayerResource extends JsonResource
             'seed' => $this->seed,
             'age' => $this->age,
             'handedness' => $this->handedness,
-            'image_url' => $this->image_url,
+            'img_url' => $this->img_url,
             'active' => $this->active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

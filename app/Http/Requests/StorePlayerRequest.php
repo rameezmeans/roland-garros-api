@@ -29,7 +29,7 @@ class StorePlayerRequest extends FormRequest
             'seed' => ['nullable', 'integer', 'min:1'],
             'age' => ['required', 'integer', 'min:14', 'max:60'],
             'handedness' => ['required', 'in:left,right'],
-            'image_url' => ['nullable', 'url'],
+            'img_url' => ['nullable', 'url'],
             'active' => ['boolean'],
         ];
     }

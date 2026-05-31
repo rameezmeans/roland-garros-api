@@ -17,7 +17,7 @@ class Player extends Model
         'seed',
         'age',
         'handedness',
-        'image_url',
+        'img_url',
         'active',
     ];
 

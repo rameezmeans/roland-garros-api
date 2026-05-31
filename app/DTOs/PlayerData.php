@@ -11,7 +11,7 @@ class PlayerData
         public readonly ?int $seed,
         public readonly int $age,
         public readonly string $handedness,
-        public readonly ?string $image_url,
+        public readonly ?string $img_url,
         public readonly bool $active,
     ) {
     }
@@ -25,7 +25,7 @@ class PlayerData
             seed: isset($data['seed']) ? (int) $data['seed'] : null,
             age: (int) $data['age'],
             handedness: $data['handedness'],
-            image_url: $data['image_url'] ?? null,
+            img_url: $data['img_url'] ?? null,
             active: $data['active'] ?? true,
         );
     }
@@ -39,7 +39,7 @@ class PlayerData
             'seed' => $this->seed,
             'age' => $this->age,
             'handedness' => $this->handedness,
-            'image_url' => $this->image_url,
+            'img_url' => $this->img_url,
             'active' => $this->active,
         ];
     }

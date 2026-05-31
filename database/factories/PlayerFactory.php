@@ -27,7 +27,7 @@ class PlayerFactory extends Factory
                 'left',
                 'right',
             ]),
-            'image_url' => fake()->imageUrl(),
+            'img_url' => fake()->imageUrl(),
             'active' => true,
         ];
     }
